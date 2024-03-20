@@ -1,0 +1,32 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <!-- Create participant_to_test table -->
+    <changeSet id="create_participant_test_agent_table" author="a.a.andreev">
+        <createTable tableName="participant_test_agent">
+            <column name="participant_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="test_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="result" type="INT">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="add_foreign_key_participant_to_test" author="a.a.andreev">
+        <addForeignKeyConstraint baseTableName="participant_test_agent" baseColumnNames="participant_id"
+                                 constraintName="fk_participant_test_participant"
+                                 referencedTableName="participant" referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="participant_test_agent" baseColumnNames="test_id"
+                                 constraintName="fk_participant_test_test"
+                                 referencedTableName="test" referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

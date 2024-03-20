@@ -1,0 +1,78 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <!-- Create test table -->
+    <changeSet id="create_test_table" author="a.a.andreev">
+        <createTable tableName="test">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="test_name" type="VARCHAR">
+                <constraints unique="true"/>
+            </column>
+            <column name="test_date" type="DATE"/>
+        </createTable>
+    </changeSet>
+
+    <!-- Create question table -->
+    <changeSet id="create_question_table" author="a.a.andreev">
+        <createTable tableName="question">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="text" type="VARCHAR"/>
+            <column name="test_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Create answer table -->
+    <changeSet id="create_answer_table" author="a.a.andreev">
+        <createTable tableName="answer">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="text" type="VARCHAR"/>
+            <column name="is_correct" type="BOOLEAN"/>
+            <column name="question_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="participant_id" type="INT">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Create participant table -->
+    <changeSet id="create_participant_table" author="a.a.andreev">
+        <createTable tableName="participant">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="user_id" type="Int">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="email" type="VARCHAR">
+                <constraints unique="true" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Add foreign key constraints -->
+    <changeSet id="add_foreign_key" author="a.a.andreev">
+        <addForeignKeyConstraint baseTableName="question" baseColumnNames="test_id"
+                                 constraintName="fk_Question_Test"
+                                 referencedTableName="test" referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="answer" baseColumnNames="question_id"
+                                 constraintName="fk_Answer_Question"
+                                 referencedTableName="question" referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="answer" baseColumnNames="participant_id"
+                                 constraintName="fk_answer_participant"
+                                 referencedTableName="participant" referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

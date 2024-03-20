@@ -1,0 +1,10 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <include file="2024-03-09-init.xml" relativeToChangelogFile="true"/>
+    <include file="2024-03-19-add-tag-level-to-test.xml" relativeToChangelogFile="true"/>
+    <include file="2024-03-20-create-participant-to-test.xml" relativeToChangelogFile="true"/>
+</databaseChangeLog>

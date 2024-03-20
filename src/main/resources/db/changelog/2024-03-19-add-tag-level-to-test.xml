@@ -1,0 +1,21 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <!-- Update test table -->
+    <changeSet id="add_level_and_tag_to_test_table" author="a.a.andreev">
+        <addColumn tableName="test">
+            <column name="level" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tag" type="VARCHAR">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        <sql>
+            ALTER TABLE test ADD CONSTRAINT check_level_values CHECK (level IN ('EASY', 'NORMAL', 'HARD'))
+        </sql>
+    </changeSet>
+</databaseChangeLog>
